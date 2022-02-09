@@ -3,9 +3,7 @@ body {
     box-sizing:border-box;
     margin:0;
     background-image: url("images/fichas-rojas.jpeg");
-    /* background-size: cover; */
     background-position: center;
-    /* background-repeat: no-repeat; */
 }
 
 .title{
@@ -20,31 +18,6 @@ body {
     font-size:80px;
     text-shadow: 1px 1px white;
 }
-
-/* .scoreBoard{
-    margin:20px 20px;
-    font-family:'Times New Roman', Times, serif;
-    font-size:25px;
-    border:10px solid rgb(132, 24, 24);
-    border-style:ridge;
-    border-radius: 10px;
-    text-align:center;
-    font-weight:bold;
-    color:white;
-}
-
-.scoreTags{
-    border-bottom:4px solid rgb(132, 24, 24);
-}
-
-.playerScorePoints{
-    border-right:4px solid rgb(132, 24, 24);
-
-}
-
-.playerScoreTag {
-    border-right: 4px solid rgb(132, 24, 24);
-} */
 
 .playBoard{
     font-family:'Times New Roman',
@@ -120,4 +93,34 @@ body {
     justify-content: center;
     margin:auto;
     text-align:center;
+}
+
+#winner{
+     font-family: 'Times New Roman',
+     Times,
+     serif;
+     font-weight:bold;
+     font-size: 40px;
+     text-shadow: 1px 1px rgb(190, 249, 195);
+     color: rgb(75, 200, 37);
+}
+
+#looser {
+    font-family: 'Times New Roman',
+        Times,
+        serif;
+    font-weight: bold;
+    font-size: 40px;
+    text-shadow: 1px 1px rgb(255, 170, 170);
+    color: rgb(215, 35, 35);
+}
+
+#tie{
+    font-family: 'Times New Roman',
+        Times,
+        serif;
+    font-weight: bold;
+    font-size: 40px;
+    text-shadow: 1px 1px rgb(193, 189, 189);
+    color: rgb(109, 113, 108);
 }

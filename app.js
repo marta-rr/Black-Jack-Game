@@ -1,10 +1,10 @@
-// const playerGlobalScore_div = document.querySelector(".playerScorePoints");
-// const dealerGlobalScore_div = document.querySelector(".dealerScorePoints");
 const playerScore_span = document.getElementById("player-score-points");
 const dealerScore_span = document.getElementById("dealer-score-points");
 const playerCards_div = document.querySelector("#playerCards > p");
 const dealerCards_div = document.getElementById("dealerCards");
-const winner_div = document.querySelector(".winner > p");
+const winner_div = document.getElementById("winner");
+const looser_div = document.getElementById("looser");
+const tie_div = document.getElementById("tie");
 
 let money = 100;
 let bet = 10;
@@ -30,6 +30,11 @@ let cardValues = {
     "Q":10,
     "A": [1, 11]
 }
+ // shuffle Deck
+let cards = createDeck();
+shuffleDeck(cards);
+
+let gameEnds = false;
 
 
 function createDeck(){
@@ -54,19 +59,17 @@ function shuffleDeck(deck){
 
 function play(){
     document.getElementById("btn").style.visibility="hidden";
-    // shuffle Deck
-    let ranks = createDeck();
-    shuffleDeck(ranks);
     // Get 2 first cards from shuffle deck
     let n = 2;
-    for(let i = 1; i < n; i++){
-        let twoFirstCardsPlayer = ranks.slice(i, i+n);
-        twoFirstCardsPlayer.forEach(card => playerCards.push(card))
+    for(let i = 0; i < n; i++){
+        let twoFirstCardsPlayer = cards.slice(i, i+1);
+        twoFirstCardsPlayer.forEach(card => playerCards.push(card));
         }
-    for(let i = 1; i < n; i++){
-        let twoFirstCardsComputer = ranks.slice(i+n, i+n+n);
-        twoFirstCardsComputer.forEach(card => dealerCards.push(card))
+    for(let i = 0; i < n; i++){
+        let twoFirstCardsComputer = cards.slice(i+n, i+1+n);
+        twoFirstCardsComputer.forEach(card => dealerCards.push(card));
     }
+
     console.log('Player Hand: ' + playerCards);
     console.log('Dealer Hand: ' + dealerCards);
 
@@ -74,27 +77,59 @@ function play(){
     dealerCards_div.innerHTML= dealerCards;
 
     getScore();
-    if(playerScore == 21){
-        playerScore_span.innerHTML = "BLACKJACK!";
-    }
-
+    ifBlackJackAtfirst();
 }
 
-// function determineWinner(){
-//     if(playerScore < dealerScore){
-//             winner_div.innerHTML = "The winner is YOU"
-//     }
-//     else if (dealerScore  > playerScore){
-//         winner_div.innerHTML = "The winner is the dealer"
-//     }
-//     else {
-//         winner_div.innerHTML = "There is a tie"
-//     }
-// }
+function ifBlackJackAtfirst(){
+     if(playerScore == 21 && dealerScore != 21){
+        playerScore_span.innerHTML = "BLACKJACK!";
+        winner_div.innerHTML = "You win the game. Congratulations!"
+        gameEnds = true;
+    }
+    else if(playerScore == 21 && dealerScore == 21){
+        playerScore_span.innerHTML = "BLACKJACK!";
+        dealerScore_span.innerHTML = "BLACKJACK!";
+        tie_div.innerHTML = "Both you and the dealer have BlackJack. There is a tie. Try again!"
+        gameEnds = true;
+    }
+}
+
+function determineWinner(){
+    if(playerScore == 21 && dealerScore != 21){
+        playerScore_span.innerHTML = "BLACKJACK!";
+        winner_div.innerHTML = "You win the game. Congratulations!"
+        gameEnds = true;
+    }
+    else if(playerScore == 21 && dealerScore == 21){
+        playerScore_span.innerHTML = "BLACKJACK!";
+        dealerScore_span.innerHTML = "BLACKJACK!";
+        tie_div.innerHTML = "Both you and the dealer have BlackJack. There is a tie. Try again!"
+        gameEnds = true;
+    }
+    else if(playerScore > 21){
+        looser_div.innerHTML = "You lost. The dealer is the winner!";
+        gameEnds = true;
+    }
+    else if(dealerScore > 21 && playerScore <= 21){
+        winner_div.innerHTML = "You win the game. Congratulations!";
+        gameEnds = true;
+    }
+    else if(dealerScore == playerScore){
+        tie_div.innerHTML = "You have the same score. It is a tie!";
+        gameEnds = true;
+    }
+    else if(playerScore > dealerScore && playerScore <=21){
+        winner_div.innerHTML = "You win the game. Congratulations!";
+        gameEnds = true;
+    }
+    else if(dealerScore > playerScore && dealerScore <=21){
+        looser.innerHTML = "You lost. The dealer is the winner!";
+        gameEnds = true;
+    }
+}
 
 function hit(){
-
-    if(playerScore != 0 && playerScore != 21){
+    if(playerScore != 0 && playerScore != 21 && gameEnds == false){
         playerCards.push(addCard())
         getScore();
         if(playerScore < 21){
@@ -103,21 +138,22 @@ function hit(){
             console.log(`The player cards are: ${playerCards}`)
         }
         else if(playerScore > 21){
+            playerCards_div.innerHTML= playerCards;
             playerScore_span.innerHTML = "BUSTS!";
-            // gameOver();
+            determineWinner();
         }
         else{
-            playerCards_div.innerHTML= playerCards;
+            playerCards_div.innerHTML = playerCards;
             playerScore_span.innerHTML = "BLACKJACK!";
+            determineWinner();
         }
     }
 
-    }
+}
 
 
 function stand(){
-    // Dealer gets one card if overall score is less than 16, otherwise game ends and we need to compare scored for player and dealer
-    if(dealerScore != 0){
+    if(dealerScore != 0 && gameEnds == false){
        while(dealerScore <= 16){
             dealerCards.push(addCard())
             getScore();
@@ -127,17 +163,15 @@ function stand(){
             if(dealerScore>21){
                 dealerScore_span.innerHTML= "BUSTS!"
             }
-        }
     }
-
-
+    determineWinner()
+}
 
 
 function getScore(){
     playerScore = 0;
     dealerScore = 0;
 
-    //need to double check
     playerCards.forEach(function (card){
         if(card.includes("A"))
         {
@@ -157,13 +191,7 @@ function getScore(){
 
     console.log(`The player score is: ${playerScore}`);
 
-    // dealerCards.forEach(card => dealerScore += cardValues[card.slice(0, -1)])
-    // console.log(`The dealer score is: ${dealerScore}`);
-
-    // playerCards.forEach(card => playerScore += cardValues[card.slice(0, -1)])
-    // console.log(playerScore);
-
-     dealerCards.forEach(function (card){
+    dealerCards.forEach(function (card){
         if(card.includes("A"))
         {
             if(dealerScore + cardValues['A'][1] <=21)
@@ -186,28 +214,30 @@ function getScore(){
 }
 
 function addCard(){
-    let ranks = createDeck();
-    shuffleDeck(ranks);
-    return ranks.shift();
+    return cards.pop();
+}
+
+function reset(){
+    let cards = createDeck();
+    shuffleDeck(cards);
+    dealerCards = [];
+    playerCards = [];
+    dealerScore = 0;
+    playerScore = 0;
+    deck = [];
+    gameEnds = false;
+
+    playerScore_span.innerHTML = playerScore;
+    dealerScore_span.innerHTML = dealerScore;
+    playerCards_div.innerHTML = playerCards;
+    dealerCards_div.innerHTML = dealerCards;
+    winner_div.innerHTML = "";
+    looser_div.innerHTML = "";
+    tie_div.innerHTML = "";
+    play();
 }
 
 
-
-
-
-
-
-
-// splice method for giving two cards to player and dealer? (make sure they get removed from the deck;)
-// Make the score update depending on the value of the cards: compare arrays and return values
-// make 1 card for the dealer  faced down
-// make the cards to be images
-// if player Score is not 21, hit or Stand
-// if player score is 21 -> blackjack
-// if hit, another card is given
-// if stand, dealer gets one card if score is less then 16 and so on
-// compare player and dealer values to determine winner
-// Add bet options
 
 
 
