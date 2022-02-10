@@ -11,27 +11,32 @@
         <div class="playButton">
             <button onclick="play()" class="play-button" id="btn">Play</button>
             <p id="winner"></p>
-            <p id="looser"></p>
+            <p id="loser"></p>
             <p id="tie"></p>
         </div>
 
         <div class="container playBoard">
-            <div class="row playersScores">
-                <div class="col-6 playerBoardPoints ">
+            <div class="row playersScores ">
+                <div class="col-1"></div>
+                <div class="col-4 playerBoardPoints ">
                     Player: <span id="player-score-points">0</span>
                     </div>
-                <div class="col-6 dealerBoardPoints">
-                    Dealer: <span id="dealer-score-points">0</span>
-                    </div>
+                <div class="col-2"></div>
+                <div class="col-4 dealerBoardPoints">
+                    Dealer: <span id="dealer-score-points">?</span>
                 </div>
+                <div class="col-1"></div>
+            </div>
             <div class="row playersCards">
                 <div class="col-6 playerCards" id="playerCards">
-                    <p>Cards</p>
-                    </div>
-                <div class="col-6 dealerCards" id="dealerCards">
-                    Cards
-                    </div>
+                    <p></p>
+                    <span id="card-image-player"></span>
                 </div>
+                <div class="col-6 dealerCards" id="dealerCards">
+                    <p></p>
+                    <span id="card-image-dealer"></span>
+                </div>
+            </div>
 
         </div>
 

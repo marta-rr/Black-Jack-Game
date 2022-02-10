@@ -20,14 +20,23 @@ body {
 }
 
 .playBoard{
-    font-family:'Times New Roman',
-    Times,
-    serif;
-    font-size:30px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size:29px;
+    font-weight:bold;
     padding-top:30px;
     font-weight:bold;
     color: white;
     text-align:center;
+}
+
+.playerBoardPoints{
+    border: 5px solid rgb(164, 43, 43);
+    border-style: double;
+}
+
+.dealerBoardPoints {
+    border: 5px solid rgb(164, 43, 43);
+    border-style: double;
 }
 
 .player-buttons{
@@ -105,7 +114,7 @@ body {
      color: rgb(75, 200, 37);
 }
 
-#looser {
+#loser {
     font-family: 'Times New Roman',
         Times,
         serif;
