@@ -70,7 +70,6 @@ function play(){
         twoFirstCardsComputer.forEach(card => dealerCards.push(card));
         showCardDealer();
     }
-
     getScore();
     ifBlackJackAtfirst();
 }
@@ -82,12 +81,14 @@ function ifBlackJackAtfirst(){
         dealerScore_span.innerHTML = dealerScore;
         winner_div.innerHTML = "You win the game. Congratulations!"
         gameEnds = true;
+        cardsFaceUP()
     }
     else if(playerScore == 21 && dealerScore == 21){
         playerScore_span.innerHTML = "BLACKJACK!";
         dealerScore_span.innerHTML = "BLACKJACK!";
         tie_div.innerHTML = "Both you and the dealer have BlackJack. There is a tie. Try again!"
         gameEnds = true;
+        cardsFaceUP()
     }
 }
 
@@ -146,7 +147,6 @@ function showingDealerScore(){
         dealerScore_span.innerHTML = "BUSTS!";
         gameEnds = true;
     }
-    showCardDealer()
     cardsFaceUP()
 }
 
@@ -168,7 +168,7 @@ function hit(){
             determineWinner();
         }
     }
-
+    console.log(`You have these cards ${playerCards} and this score ${playerScore}.`)
 }
 
 
@@ -185,6 +185,7 @@ function stand(){
             }
             determineWinner()
     }
+    console.log(`You have these cards: ${playerCards} and this score: ${playerScore}.`)
 }
 
 
