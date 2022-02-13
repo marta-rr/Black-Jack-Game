@@ -8,8 +8,14 @@
     </head>
     <body>
         <p class="title">BlackJack Game</p>
-        <div class="playButton">
-            <button onclick="play()" class="play-button" id="btn">Play</button>
+        <div class="Buttons-top">
+            <button onclick="play()" class="play-button" id="btn"style="visibility: hidden;">Play</button>
+            <p id="total" style="visibility: visible;"> Total Money: $<span id= "total-money">100</span></p>
+            <button class="bet-button" id="btn-bet10" style="visibility: visible;" >Bet $10</button>
+            <button class="bet-button" id="btn-bet20" style="visibility: visible;" >Bet $20</button>
+            <button  class="bet-button" id="btn-bet50" style="visibility: visible;" >Bet $50</button>
+            <p id="bet-made" style="visibility: hidden;"> Your bet: $<span id= "total-bet">0</span></p>
+
             <p id="winner"></p>
             <p id="loser"></p>
             <p id="tie"></p>

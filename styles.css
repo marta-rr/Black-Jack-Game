@@ -82,12 +82,13 @@ body {
     color:white;
 }
 
-.playButton{
+.Buttons-top {
   text-align:center;
   padding:8px 20px;
 }
 
 .play-button{
+    display:block;
     font-family: 'Times New Roman', Times, serif;
     font-size: 30px;
     background: white;
@@ -103,6 +104,27 @@ body {
     margin:auto;
     text-align:center;
 }
+
+.bet-button {
+    display: inline;
+    font-family: 'Times New Roman',
+    Times,
+    serif;
+    font-size: 20px;
+    background: white;
+    font-weight: bold;
+    border: 3px solid rgb(146, 7, 7);
+    border-style:dashed;
+    width: 100px;
+    height:50px;
+    line-height:10px;
+    border-radius: 20px;
+    justify-content: center;
+    margin:10px;
+    text-align:center;
+    margin-top:20px;
+}
+
 
 #winner{
      font-family: 'Times New Roman',
@@ -132,4 +154,38 @@ body {
     font-size: 40px;
     text-shadow: 1px 1px rgb(193, 189, 189);
     color: rgb(109, 113, 108);
+}
+
+#total{
+    font-family: 'Times New Roman',
+    Times,
+    serif;
+    font-weight: bold;
+    font-size: 35px;
+    color:white;
+    border: 3px solid rgb(221, 53, 53);
+    border-radius: 10px;
+    width:350px;
+    height:60px;
+    justify-content: center;
+    text-align:center;
+    margin: auto;
+}
+
+#bet-made{
+    font-family: 'Times New Roman',
+        Times,
+        serif;
+    font-weight: bold;
+    font-size: 25px;
+    color: rgb(3, 1, 1);
+    border: 3px solid white;
+    background:rgb(221, 53, 53);
+    border-radius: 10px;
+    width:160px;
+    height:45px;
+    justify-content: center;
+    text-align:center;
+    margin: auto;
+    margin-bottom:40px;
 }

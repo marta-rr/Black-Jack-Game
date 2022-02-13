@@ -7,9 +7,21 @@ const loser_div = document.getElementById("loser");
 const tie_div = document.getElementById("tie");
 const cardImagePlayer_span = document.getElementById("card-image-player");
 const cardImageDealer_span = document.getElementById("card-image-dealer");
+const play_button = document.getElementById("btn");
+const totalMoney_span = document.getElementById("total-money");
+const betMade_p = document.getElementById("bet-made");
+const betMade_span = document.getElementById("total-bet");
+const bet10_button = document.getElementById("btn-bet10");
+const bet20_button = document.getElementById("btn-bet20");
+const bet50_button = document.getElementById("btn-bet50");
 
-let money = 100;
-let bet = 10;
+let totalMoney = 100;
+let userBet = 0;
+let bet10 = 10;
+let bet20 = 20;
+let bet50 = 50;
+let winner = false;
+let tie = false;
 let dealerCards = [];
 let playerCards = [];
 let dealerScore = 0;
@@ -57,10 +69,42 @@ function shuffleDeck(deck){
     return deck;
 }
 
+function main(){
+    bet10_button.addEventListener("click",function(){
+        bet10_button.style.visibility="hidden";
+        bet20_button.style.visibility="hidden";
+        bet50_button.style.visibility="hidden";
+        betMade_p.style.visibility ="visible";
+        betMade_span.innerHTML = bet10;
+        updateBetAmount(bet10);
+        play(userBet);
+    })
+    bet20_button.addEventListener("click", function(){
+        bet10_button.style.visibility="hidden";
+        bet20_button.style.visibility="hidden";
+        bet50_button.style.visibility="hidden";
+        betMade_p.style.visibility ="visible";
+        betMade_span.innerHTML = bet20;
+        updateBetAmount(bet20);
+        play(userBet);
+    })
+    bet50_button.addEventListener("click", function(){
+        bet10_button.style.visibility="hidden";
+        bet20_button.style.visibility="hidden";
+        bet50_button.style.visibility="hidden";
+        betMade_p.style.visibility ="visible";
+        betMade_span.innerHTML = bet50;
+        updateBetAmount(bet50);
+        play(userBet);
+    })
+}
 
-function play(){
-    document.getElementById("btn").style.visibility="hidden";
-    // Get 2 first cards from shuffle deck for both dealer and player
+function updateBetAmount(betAmount){
+    userBet = betAmount;
+}
+
+function play(betAmount){
+    //Get 2 first cards from shuffle deck for both dealer and player
     let n = 2;
     for(let i = 0; i < n; i++){
         let twoFirstCardsPlayer = cards.slice(i, i+1);
@@ -71,33 +115,37 @@ function play(){
         showCardDealer();
     }
     getScore();
-    ifBlackJackAtfirst();
+    ifBlackJackAtfirst(betAmount);
 }
 
-function ifBlackJackAtfirst(){
+function ifBlackJackAtfirst(betAmount){
     //Handling case blackjack as soon as pressing play
      if(playerScore == 21 && dealerScore != 21){
         playerScore_span.innerHTML = "BLACKJACK!";
         dealerScore_span.innerHTML = dealerScore;
         winner_div.innerHTML = "You win the game. Congratulations!"
         gameEnds = true;
-        cardsFaceUP()
+        winner = true;
+        cardsFaceUP();
+        bet(betAmount);
     }
     else if(playerScore == 21 && dealerScore == 21){
         playerScore_span.innerHTML = "BLACKJACK!";
         dealerScore_span.innerHTML = "BLACKJACK!";
         tie_div.innerHTML = "Both you and the dealer have BlackJack. There is a tie. Try again!"
         gameEnds = true;
-        cardsFaceUP()
+        cardsFaceUP();
+        bet(betAmount);
     }
 }
 
-function determineWinner(){
+function determineWinner(betAmount){
     //Different scenarios win/lose
     if(playerScore == 21 && dealerScore != 21){
         playerScore_span.innerHTML = "BLACKJACK!";
         winner_div.innerHTML = "You win the game. Congratulations!"
         gameEnds = true;
+        winner = true;
     }
     else if(dealerScore == 21 && playerScore != 21){
         dealerScore_span.innerHTML = "BLACKJACK!";
@@ -109,6 +157,7 @@ function determineWinner(){
         dealerScore_span.innerHTML = "BLACKJACK!";
         tie_div.innerHTML = "Both you and the dealer have BlackJack. There is a tie. Try again!"
         gameEnds = true;
+        tie = true;
     }
     else if(playerScore > 21){
         loser_div.innerHTML = "You lost. The dealer is the winner!";
@@ -117,21 +166,25 @@ function determineWinner(){
     else if(dealerScore > 21 && playerScore <= 21){
         winner_div.innerHTML = "You win the game. Congratulations!";
         gameEnds = true;
+        winner = true;
     }
     else if(dealerScore == playerScore){
         tie_div.innerHTML = "You have the same score. It is a tie!";
         gameEnds = true;
+        tie = true;
     }
     else if(playerScore > dealerScore && playerScore <=21){
         winner_div.innerHTML = "You win the game. Congratulations!";
         gameEnds = true;
+        winner = true;
     }
     else if(dealerScore > playerScore && dealerScore <=21){
         loser.innerHTML = "You lost. The dealer is the winner!";
         gameEnds = true;
     }
-    //Show dealer's score when the game is over
-    showingDealerScore()
+    bet(betAmount);
+     //Show dealer's score when the game is over
+    showingDealerScore();
 }
 
 function showingDealerScore(){
@@ -147,45 +200,45 @@ function showingDealerScore(){
         dealerScore_span.innerHTML = "BUSTS!";
         gameEnds = true;
     }
-    cardsFaceUP()
+    cardsFaceUP();
 }
 
 function hit(){
+    let betAmount = userBet;
     //Giving extra card for the player
     if(playerScore != 0 && playerScore != 21 && gameEnds == false){
         playerCards.push(addCard())
         getScore();
-        showCard()
+        showCard();
         if(playerScore < 21){
             playerScore_span.innerHTML = playerScore;
         }
         else if(playerScore > 21){
             playerScore_span.innerHTML = "BUSTS!";
-            determineWinner();
+            determineWinner(betAmount);
         }
         else{
             playerScore_span.innerHTML = "BLACKJACK!";
-            determineWinner();
+            determineWinner(betAmount);
         }
     }
-    console.log(`You have these cards ${playerCards} and this score ${playerScore}.`)
 }
 
 
 function stand(){
+    let betAmount = userBet;
     //Giving cards to the dealer till it has more than 16 points
     if(dealerScore != 0 && gameEnds == false){
        while(dealerScore <= 16){
             dealerCards.push(addCard())
-            showCardDealer()
+            showCardDealer();
             getScore();
         }
             if(dealerScore>21){
                 dealerScore_span.innerHTML= "BUSTS!"
             }
-            determineWinner()
+            determineWinner(betAmount);
     }
-    console.log(`You have these cards: ${playerCards} and this score: ${playerScore}.`)
 }
 
 
@@ -236,23 +289,31 @@ function addCard(){
 
 function reset(){
 //Restart the game
-    cards = shuffleDeck(createDeck());
-    dealerCards = [];
-    playerCards = [];
-    dealerScore = 0;
-    playerScore = 0;
-    gameEnds = false;
+    if(gameEnds == true){
+        bet10_button.style.visibility="visible";
+        bet20_button.style.visibility="visible";
+        bet50_button.style.visibility="visible";
+        betMade_p.style.visibility ="hidden";
+        cards = shuffleDeck(createDeck());
+        dealerCards = [];
+        playerCards = [];
+        dealerScore = 0;
+        playerScore = 0;
+        gameEnds = false;
+        winner = false;
+        tie = false;
 
-    playerScore_span.innerHTML = playerScore;
-    dealerScore_span.innerHTML = "?";
-    playerCards_div.innerHTML = playerCards;
-    dealerCards_div.innerHTML = dealerCards;
-    cardImagePlayer_span.innerHTML = "";
-    cardImageDealer_span.innerHTML = "";
-    winner_div.innerHTML = "";
-    loser_div.innerHTML = "";
-    tie_div.innerHTML = "";
-    play();
+        playerScore_span.innerHTML = playerScore;
+        dealerScore_span.innerHTML = "?";
+        playerCards_div.innerHTML = playerCards;
+        dealerCards_div.innerHTML = dealerCards;
+        cardImagePlayer_span.innerHTML = "";
+        cardImageDealer_span.innerHTML = "";
+        winner_div.innerHTML = "";
+        loser_div.innerHTML = "";
+        tie_div.innerHTML = "";
+        // play();
+    }
 }
 
 function showCard(card){
@@ -294,3 +355,28 @@ function cardsFaceUP(card){
         cardImageDealer_span.appendChild(pokerImageDealer);
         })
 }
+
+function bet(betAmount){
+    console.log("I am in bet")
+    // betAmount = bet10;
+    //Double check there is a moment it stop summing up or down
+    if (gameEnds == true){
+        console.log("I am in IF bet10")
+             if(winner == true && tie == false){
+                totalMoney += betAmount * 2;
+                console.log("I am in 1t case")
+            }
+            else if(winner == false && tie == false){
+                totalMoney -= betAmount;
+                console.log("I am in 2nd case")
+            }
+            else if(winner == false && tie == true){
+                totalMoney = totalMoney;
+                console.log("I am in 3rd case")
+            }
+    }
+
+    totalMoney_span.innerHTML = totalMoney;
+}
+
+main()
