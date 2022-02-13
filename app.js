@@ -76,8 +76,15 @@ function main(){
         bet50_button.style.visibility="hidden";
         betMade_p.style.visibility ="visible";
         betMade_span.innerHTML = bet10;
+        if(totalMoney >= bet10){
         updateBetAmount(bet10);
         play(userBet);
+        }
+        else{
+            loser_div.innerHTML = "No money. Game over!";
+            betMade_p.style.visibility="hidden";
+            play_button.style.visibility="visible";
+        }
     })
     bet20_button.addEventListener("click", function(){
         bet10_button.style.visibility="hidden";
@@ -85,8 +92,23 @@ function main(){
         bet50_button.style.visibility="hidden";
         betMade_p.style.visibility ="visible";
         betMade_span.innerHTML = bet20;
+        if(totalMoney >= bet20){
         updateBetAmount(bet20);
         play(userBet);
+        }
+        else if(totalMoney == 0) {
+            loser_div.innerHTML = "No money. Game over!";
+            betMade_p.style.visibility="hidden";
+            play_button.style.visibility="visible";
+        }
+        else{
+            loser_div.innerHTML = "You do not have enough money to bet $20. Choose another amount or play again";
+            betMade_p.style.visibility="hidden";
+            bet10_button.style.visibility="visible";
+            bet20_button.style.visibility="visible";
+            bet50_button.style.visibility="visible";
+            play_button.style.visibility="visible";
+        }
     })
     bet50_button.addEventListener("click", function(){
         bet10_button.style.visibility="hidden";
@@ -94,8 +116,23 @@ function main(){
         bet50_button.style.visibility="hidden";
         betMade_p.style.visibility ="visible";
         betMade_span.innerHTML = bet50;
+        if(totalMoney >= bet50){
         updateBetAmount(bet50);
         play(userBet);
+        }
+        else if(totalMoney == 0) {
+            loser_div.innerHTML = "No money. Game over!";
+            betMade_p.style.visibility="hidden";
+            play_button.style.visibility="visible";
+        }
+        else{
+            loser_div.innerHTML = "You do not have enough money to bet $50. Choose another amount or play again";
+            betMade_p.style.visibility="hidden";
+            bet10_button.style.visibility="visible";
+            bet20_button.style.visibility="visible";
+            bet50_button.style.visibility="visible";
+            play_button.style.visibility="visible";
+        }
     })
 }
 
@@ -312,8 +349,35 @@ function reset(){
         winner_div.innerHTML = "";
         loser_div.innerHTML = "";
         tie_div.innerHTML = "";
-        // play();
     }
+}
+
+
+function playAgain(){
+        bet10_button.style.visibility="visible";
+        bet20_button.style.visibility="visible";
+        bet50_button.style.visibility="visible";
+        play_button.style.visibility="hidden";
+        cards = shuffleDeck(createDeck());
+        dealerCards = [];
+        playerCards = [];
+        dealerScore = 0;
+        playerScore = 0;
+        gameEnds = false;
+        winner = false;
+        tie = false;
+        totalMoney = 100;
+        betMade_p.style.visibility ="hidden";
+        totalMoney_span.innerHTML = totalMoney;
+        playerScore_span.innerHTML = playerScore;
+        dealerScore_span.innerHTML = "?";
+        playerCards_div.innerHTML = playerCards;
+        dealerCards_div.innerHTML = dealerCards;
+        cardImagePlayer_span.innerHTML = "";
+        cardImageDealer_span.innerHTML = "";
+        winner_div.innerHTML = "";
+        loser_div.innerHTML = "";
+        tie_div.innerHTML = "";
 }
 
 function showCard(card){
