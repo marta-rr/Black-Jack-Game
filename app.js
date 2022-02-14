@@ -79,10 +79,12 @@ function main(){
         if(totalMoney >= bet10){
         updateBetAmount(bet10);
         play(userBet);
+        betMade_p.innerHTML = `Your bet: $${bet10}`; 
+        loser_div.innerHTML = "";
         }
         else{
-            loser_div.innerHTML = "No money. Game over!";
-            betMade_p.style.visibility="hidden";
+            loser_div.innerHTML = "GAME OVER!";
+            betMade_p.innerHTML="NO MONEY";
             play_button.style.visibility="visible";
         }
     })
@@ -95,19 +97,20 @@ function main(){
         if(totalMoney >= bet20){
         updateBetAmount(bet20);
         play(userBet);
+        betMade_p.innerHTML = `Your bet: $${bet20}`;     
+        loser_div.innerHTML = "";
         }
         else if(totalMoney == 0) {
-            loser_div.innerHTML = "No money. Game over!";
-            betMade_p.style.visibility="hidden";
+            loser_div.innerHTML = "GAME OVER!";
+            betMade_p.innerHTML="NO MONEY";
             play_button.style.visibility="visible";
         }
         else{
-            loser_div.innerHTML = "You do not have enough money to bet $20. Choose another amount or play again";
+            loser_div.innerHTML = "Not enough money. Choose another amount";
             betMade_p.style.visibility="hidden";
             bet10_button.style.visibility="visible";
             bet20_button.style.visibility="visible";
             bet50_button.style.visibility="visible";
-            play_button.style.visibility="visible";
         }
     })
     bet50_button.addEventListener("click", function(){
@@ -119,19 +122,20 @@ function main(){
         if(totalMoney >= bet50){
         updateBetAmount(bet50);
         play(userBet);
+        betMade_p.innerHTML = `Your bet: $${bet50}`;
+        loser_div.innerHTML = "";
         }
         else if(totalMoney == 0) {
-            loser_div.innerHTML = "No money. Game over!";
-            betMade_p.style.visibility="hidden";
+            loser_div.innerHTML = "GAME OVER!";
+            betMade_p.innerHTML="NO MONEY";
             play_button.style.visibility="visible";
         }
         else{
-            loser_div.innerHTML = "You do not have enough money to bet $50. Choose another amount or play again";
+            loser_div.innerHTML = "Not enough money. Choose another amount";
             betMade_p.style.visibility="hidden";
             bet10_button.style.visibility="visible";
             bet20_button.style.visibility="visible";
             bet50_button.style.visibility="visible";
-            play_button.style.visibility="visible";
         }
     })
 }
@@ -160,7 +164,7 @@ function ifBlackJackAtfirst(betAmount){
      if(playerScore == 21 && dealerScore != 21){
         playerScore_span.innerHTML = "BLACKJACK!";
         dealerScore_span.innerHTML = dealerScore;
-        winner_div.innerHTML = "You win the game. Congratulations!"
+        winner_div.innerHTML = "YOU WIN!"
         gameEnds = true;
         winner = true;
         cardsFaceUP();
@@ -169,7 +173,7 @@ function ifBlackJackAtfirst(betAmount){
     else if(playerScore == 21 && dealerScore == 21){
         playerScore_span.innerHTML = "BLACKJACK!";
         dealerScore_span.innerHTML = "BLACKJACK!";
-        tie_div.innerHTML = "Both you and the dealer have BlackJack. There is a tie. Try again!"
+        tie_div.innerHTML = "IT IS A TIE"
         gameEnds = true;
         cardsFaceUP();
         bet(betAmount);
@@ -180,43 +184,43 @@ function determineWinner(betAmount){
     //Different scenarios win/lose
     if(playerScore == 21 && dealerScore != 21){
         playerScore_span.innerHTML = "BLACKJACK!";
-        winner_div.innerHTML = "You win the game. Congratulations!"
+        winner_div.innerHTML = "YOU WIN!"
         gameEnds = true;
         winner = true;
     }
     else if(dealerScore == 21 && playerScore != 21){
         dealerScore_span.innerHTML = "BLACKJACK!";
-        loser.innerHTML = "You lost. The dealer is the winner!";
+        loser.innerHTML = "YOU LOST...";
         gameEnds = true;
     }
     else if(playerScore == 21 && dealerScore == 21){
         playerScore_span.innerHTML = "BLACKJACK!";
         dealerScore_span.innerHTML = "BLACKJACK!";
-        tie_div.innerHTML = "Both you and the dealer have BlackJack. There is a tie. Try again!"
+        tie_div.innerHTML = "IT IS A TIE"
         gameEnds = true;
         tie = true;
     }
     else if(playerScore > 21){
-        loser_div.innerHTML = "You lost. The dealer is the winner!";
+        loser_div.innerHTML = "YOU LOST...";
         gameEnds = true;
     }
     else if(dealerScore > 21 && playerScore <= 21){
-        winner_div.innerHTML = "You win the game. Congratulations!";
+        winner_div.innerHTML = "YOU WIN!";
         gameEnds = true;
         winner = true;
     }
     else if(dealerScore == playerScore){
-        tie_div.innerHTML = "You have the same score. It is a tie!";
+        tie_div.innerHTML = "IT IS A TIE";
         gameEnds = true;
         tie = true;
     }
     else if(playerScore > dealerScore && playerScore <=21){
-        winner_div.innerHTML = "You win the game. Congratulations!";
+        winner_div.innerHTML = "YOU WIN!";
         gameEnds = true;
         winner = true;
     }
     else if(dealerScore > playerScore && dealerScore <=21){
-        loser.innerHTML = "You lost. The dealer is the winner!";
+        loser.innerHTML = "YOU LOST...";
         gameEnds = true;
     }
     bet(betAmount);
