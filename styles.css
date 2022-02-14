@@ -4,6 +4,8 @@ body {
     margin:0;
     background-image: url("images/fichas-rojas.jpeg");
     background-position: center;
+    position: relative;
+    min-height: 100vh;
 }
 
 .title{
@@ -189,4 +191,13 @@ body {
     text-align:center;
     margin: auto;
     margin-bottom:40px;
+}
+
+.page-footer{
+/* Make the footer to stay at the end of the page */
+    position: absolute;
+    bottom: 20px;
+    padding-top:30px;
+    width: 100%;
+    height: 2.5rem;
 }
