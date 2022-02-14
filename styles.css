@@ -6,6 +6,7 @@ body {
     background-position: center;
     position: relative;
     min-height: 100vh;
+    width: 100%;
 }
 
 .title{
@@ -41,6 +42,18 @@ body {
     border-style: double;
 }
 
+@media only screen and (max-width: 576px) {
+    .playBoard {
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        font-size: 19px;
+        font-weight: bold;
+        padding-top: 30px;
+        font-weight: bold;
+        color: white;
+        text-align: center;
+    }
+}
+
 .player-buttons{
     padding:50px;
     margin: auto;
@@ -59,6 +72,7 @@ body {
     padding: 15px 15px;
     border-radius: 40px;
     margin:10px;
+    color:black;
 }
 
 .stand-button{
@@ -70,6 +84,7 @@ body {
     padding: 15px 15px;
     border-radius: 40px;
     margin:10px;
+    color:black;
 }
 
 .reset-button{
@@ -93,6 +108,7 @@ body {
     display:block;
     font-family: 'Times New Roman', Times, serif;
     font-size: 30px;
+    color:black;
     background: white;
     font-weight: bold;
     border: 5px solid rgb(146, 7, 7);
@@ -113,6 +129,7 @@ body {
     font-family: 'Times New Roman',
     Times,
     serif;
+    color:red;
     font-size: 20px;
     background: white;
     font-weight: bold;
@@ -120,7 +137,7 @@ body {
     border-style:dashed;
     width: 100px;
     height:50px;
-    line-height:10px;
+    line-height:20px;
     border-radius: 20px;
     justify-content: center;
     margin:10px;
@@ -181,11 +198,12 @@ body {
         serif;
     font-weight: bold;
     font-size: 25px;
-    color: rgb(3, 1, 1);
-    border: 3px solid white;
-    background:rgb(221, 53, 53);
+    border: 3px solid rgb(146, 7, 7);
+    border-style:dotted;
+    background:white;
+    color: black;
     border-radius: 10px;
-    width:160px;
+    width:170px;
     height:45px;
     justify-content: center;
     text-align:center;

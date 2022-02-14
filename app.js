@@ -430,7 +430,7 @@ function bet(betAmount){
     //Double check there is a moment it stop summing up or down
     if (gameEnds == true){
              if(winner == true && tie == false){
-                totalMoney += betAmount * 2;
+                totalMoney += betAmount;
             }
             else if(winner == false && tie == false){
                 totalMoney -= betAmount;
