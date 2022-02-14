@@ -77,10 +77,10 @@ function main(){
         betMade_p.style.visibility ="visible";
         betMade_span.innerHTML = bet10;
         if(totalMoney >= bet10){
-        updateBetAmount(bet10);
-        play(userBet);
-        betMade_p.innerHTML = `Your bet: $${bet10}`; 
-        loser_div.innerHTML = "";
+            updateBetAmount(bet10);
+            play(userBet);
+            betMade_p.innerHTML = `Your bet: $${bet10}`;
+            loser_div.innerHTML = "";
         }
         else{
             loser_div.innerHTML = "GAME OVER!";
@@ -95,12 +95,12 @@ function main(){
         betMade_p.style.visibility ="visible";
         betMade_span.innerHTML = bet20;
         if(totalMoney >= bet20){
-        updateBetAmount(bet20);
-        play(userBet);
-        betMade_p.innerHTML = `Your bet: $${bet20}`;     
-        loser_div.innerHTML = "";
+            updateBetAmount(bet20);
+            play(userBet);
+            betMade_p.innerHTML = `Your bet: $${bet20}`;
+            loser_div.innerHTML = "";
         }
-        else if(totalMoney == 0) {
+        else if(totalMoney == 0){
             loser_div.innerHTML = "GAME OVER!";
             betMade_p.innerHTML="NO MONEY";
             play_button.style.visibility="visible";
@@ -120,12 +120,12 @@ function main(){
         betMade_p.style.visibility ="visible";
         betMade_span.innerHTML = bet50;
         if(totalMoney >= bet50){
-        updateBetAmount(bet50);
-        play(userBet);
-        betMade_p.innerHTML = `Your bet: $${bet50}`;
-        loser_div.innerHTML = "";
+            updateBetAmount(bet50);
+            play(userBet);
+            betMade_p.innerHTML = `Your bet: $${bet50}`;
+            loser_div.innerHTML = "";
         }
-        else if(totalMoney == 0) {
+        else if(totalMoney == 0){
             loser_div.innerHTML = "GAME OVER!";
             betMade_p.innerHTML="NO MONEY";
             play_button.style.visibility="visible";
@@ -329,12 +329,13 @@ function addCard(){
 }
 
 function reset(){
-//Restart the game
+//Reset values for new round of the game
     if(gameEnds == true){
         bet10_button.style.visibility="visible";
         bet20_button.style.visibility="visible";
         bet50_button.style.visibility="visible";
         betMade_p.style.visibility ="hidden";
+
         cards = shuffleDeck(createDeck());
         dealerCards = [];
         playerCards = [];
@@ -356,32 +357,33 @@ function reset(){
     }
 }
 
-
 function playAgain(){
-        bet10_button.style.visibility="visible";
-        bet20_button.style.visibility="visible";
-        bet50_button.style.visibility="visible";
-        play_button.style.visibility="hidden";
-        cards = shuffleDeck(createDeck());
-        dealerCards = [];
-        playerCards = [];
-        dealerScore = 0;
-        playerScore = 0;
-        gameEnds = false;
-        winner = false;
-        tie = false;
-        totalMoney = 100;
-        betMade_p.style.visibility ="hidden";
-        totalMoney_span.innerHTML = totalMoney;
-        playerScore_span.innerHTML = playerScore;
-        dealerScore_span.innerHTML = "?";
-        playerCards_div.innerHTML = playerCards;
-        dealerCards_div.innerHTML = dealerCards;
-        cardImagePlayer_span.innerHTML = "";
-        cardImageDealer_span.innerHTML = "";
-        winner_div.innerHTML = "";
-        loser_div.innerHTML = "";
-        tie_div.innerHTML = "";
+    //Reseting values in case of Game Over
+    bet10_button.style.visibility="visible";
+    bet20_button.style.visibility="visible";
+    bet50_button.style.visibility="visible";
+    play_button.style.visibility="hidden";
+    cards = shuffleDeck(createDeck());
+    dealerCards = [];
+    playerCards = [];
+    dealerScore = 0;
+    playerScore = 0;
+    gameEnds = false;
+    winner = false;
+    tie = false;
+    //Asign $100 again
+    totalMoney = 100;
+    betMade_p.style.visibility ="hidden";
+    totalMoney_span.innerHTML = totalMoney;
+    playerScore_span.innerHTML = playerScore;
+    dealerScore_span.innerHTML = "?";
+    playerCards_div.innerHTML = playerCards;
+    dealerCards_div.innerHTML = dealerCards;
+    cardImagePlayer_span.innerHTML = "";
+    cardImageDealer_span.innerHTML = "";
+    winner_div.innerHTML = "";
+    loser_div.innerHTML = "";
+    tie_div.innerHTML = "";
 }
 
 function showCard(card){
@@ -405,9 +407,9 @@ function showCardDealer(card){
             cardImageDealer_span.appendChild(pokerImageDealer);
             }
         else{
-        pokerImageDealer.style = 'width: 140px; height:200px; margin:20px'
-        pokerImageDealer.src = `images/PNG-cards-1.3/${card}.png`;
-        cardImageDealer_span.appendChild(pokerImageDealer);
+            pokerImageDealer.style = 'width: 140px; height:200px; margin:20px'
+            pokerImageDealer.src = `images/PNG-cards-1.3/${card}.png`;
+            cardImageDealer_span.appendChild(pokerImageDealer);
         }
     })
 }
@@ -425,25 +427,18 @@ function cardsFaceUP(card){
 }
 
 function bet(betAmount){
-    console.log("I am in bet")
-    // betAmount = bet10;
     //Double check there is a moment it stop summing up or down
     if (gameEnds == true){
-        console.log("I am in IF bet10")
              if(winner == true && tie == false){
                 totalMoney += betAmount * 2;
-                console.log("I am in 1t case")
             }
             else if(winner == false && tie == false){
                 totalMoney -= betAmount;
-                console.log("I am in 2nd case")
             }
             else if(winner == false && tie == true){
                 totalMoney = totalMoney;
-                console.log("I am in 3rd case")
             }
     }
-
     totalMoney_span.innerHTML = totalMoney;
 }
 

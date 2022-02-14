@@ -130,13 +130,13 @@ body {
 
 
 #winner{
-     font-family: 'Times New Roman',
-     Times,
-     serif;
-     font-weight:bold;
-     font-size: 40px;
-     text-shadow: 1px 1px rgb(190, 249, 195);
-     color: rgb(75, 200, 37);
+    font-family: 'Times New Roman',
+    Times,
+    serif;
+    font-weight:bold;
+    font-size: 40px;
+    text-shadow: 1px 1px rgb(190, 249, 195);
+    color: rgb(75, 200, 37);
 }
 
 #loser {
